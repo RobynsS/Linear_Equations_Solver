@@ -7,6 +7,9 @@ import java.util.Scanner;
 public class Reader {
     static double[][] readElementsFromInput(String filePath) throws ReaderException{
         File file = new File(filePath);
+        String rowString;
+        String[] rowStringSplit;
+        int M;
         int N;
         double[][] elements;
 
@@ -14,17 +17,22 @@ public class Reader {
             //Try to create Scanner object with the given file
             Scanner scanner = new Scanner(file);
 
-            //Get amount of variables N and initialize elements array
-            N =  Integer.parseInt(scanner.nextLine());
-            elements = new double[N][N+1];
+            //Get amount of equations M and variables N and initialize elements array
+            rowString = scanner.nextLine();
+            rowStringSplit = rowString.split(" ");
+
+            M = Integer.parseInt(rowStringSplit[0]);
+            N = Integer.parseInt(rowStringSplit[1]);
+
+            elements = new double[N][M+1];
 
             //Get each row of elements
             int rowCounter = 0;
             while(scanner.hasNextLine()){
-                String rowString = scanner.nextLine();
+                rowString = scanner.nextLine();
 
                 //Split the input in different parts
-                String[] rowStringSplit = rowString.split(" ");
+                rowStringSplit = rowString.split(" ");
 
                 //Parse different numbers to ints
                 int columnCounter = 0;
@@ -34,7 +42,7 @@ public class Reader {
                 }
 
                 //Validate if amount of columns align with N
-                if(columnCounter != N+1){
+                if(columnCounter != M+1){
                     throw new ReaderException("Input file did not contain the correct data structure");
                 }
                 rowCounter++;
