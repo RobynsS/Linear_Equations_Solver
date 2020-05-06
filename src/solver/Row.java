@@ -17,6 +17,10 @@ public class Row {
         return getElement(this.elements.length - 1);
     }
 
+    int getSize(){
+        return elements.length;
+    }
+
     void multiply(double multiplier){
         Util.multiplyArray(this.elements, multiplier);
     }
@@ -32,6 +36,12 @@ public class Row {
                 elements[i] -= subtractedRow.elements[i];
             }
         }
+    }
+
+    void swapElement(int index1, int index2){
+        double temp = elements[index1];
+        elements[index1] = elements[index2];
+        elements[index2] = temp;
     }
 
     void printRow(){

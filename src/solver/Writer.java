@@ -5,18 +5,26 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Writer {
-    static void readSolutionToOutput(String filepath, double[] solution) {
+    static void readSolutionToOutput(String filepath, double[] solution, SolutionType solutionType) {
         File file = new File(filepath);
 
         try{
             FileWriter fileWriter = new FileWriter(file);
 
-            //Loop over solution to print all numbers on different lines
-            for(int i = 0; i < solution.length; i++){
-                fileWriter.write(Double.toString(solution[i]));
+            //If there are many or no solutions: Print text
+            if(solutionType == SolutionType.MANY || solutionType == SolutionType.NONE){
 
-                if(i != solution.length-1){
-                    fileWriter.write("\r\n");
+                fileWriter.write(solutionType.getText());
+
+            } else if(solutionType == SolutionType.ONE) {
+
+                //If there is one solution: Loop over solution to print all numbers on different lines
+                for (int i = 0; i < solution.length; i++) {
+                    fileWriter.write(Double.toString(solution[i]));
+
+                    if (i != solution.length - 1) {
+                        fileWriter.write("\r\n");
+                    }
                 }
             }
 

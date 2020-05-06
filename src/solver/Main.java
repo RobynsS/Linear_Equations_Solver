@@ -11,9 +11,10 @@ public class Main {
         // Solve the linear equations
         Solver solver = new Solver(matrix);
         solver.solve();
+        SolutionType solutionType = solver.getSolutionType();
         double[] solution = solver.getSolution();
 
         //Write solution to File
-        Writer.readSolutionToOutput(args[3], solution);
+        Writer.readSolutionToOutput(args[3], solution, solutionType);
     }
 }

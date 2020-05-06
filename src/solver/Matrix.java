@@ -23,8 +23,12 @@ public class Matrix {
         }
     }
 
-    int getSize(){
+    int getAmountRows(){
         return rows.length;
+    }
+
+    int getAmountCols(){
+        return rows[0].getSize();
     }
 
     void multiplyRow(int index, double multiplier){
@@ -37,6 +41,18 @@ public class Matrix {
 
     Row getRowCopy(int index) {
         return rows[index].getRowCopy();
+    }
+
+    void swapRows(int index1, int index2){
+        Row tempRow = rows[index1].getRowCopy();
+        rows[index1] = rows[index2];
+        rows[index2] = tempRow;
+    }
+
+    void swapCols(int index1, int index2){
+        for(Row row: rows){
+            row.swapElement(index1, index2);
+        }
     }
 
     double[] getLastElements(){
