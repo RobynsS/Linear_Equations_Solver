@@ -2,9 +2,11 @@ package solver;
 
 public class Solver {
     private Matrix matrix;
+    private CommandController controller;
 
     Solver(Matrix matrix){
         this.matrix = matrix;
+        this.controller = new CommandController();
     }
 
     void solve(){
@@ -13,16 +15,16 @@ public class Solver {
         matrix.printMatrix();
         System.out.println();
 
-        //Step 1: reduce input matrix to it's row echelon form
+        //Step 1: transform matrix to it's reduced row echelon form
         System.out.println("Start solving the equation");
-        reduceToEchelon();
+        transformToReducedRowEchelon();
 
         //Print reduced matrix
-        System.out.println("Matrix in reduced echelon form:");
+        System.out.println("Matrix in reduced row echelon form:");
         matrix.printMatrix();
         System.out.println();
 
-        //Step 2: loop upwards by decoupling variables
+        //Step 2: decouple variables of matrix
         System.out.println("Continue solving the equation");
         decoupleVariables();
 
@@ -32,25 +34,29 @@ public class Solver {
         System.out.println();
     }
 
-    void reduceToEchelon(){
+    void transformToReducedRowEchelon(){
         //Get matrix size
         int N = matrix.getSize();
 
-        //Loop over different columns which need to be "nulled"
+        //Loop over different columns which need to be "nullified"
         for(int j = 0; j < N - 1; j++){
 
-            //Make sure the starting index of the corresponding row equals 1
-            scaleToCoefficientOne(j);
+            //Scale the row coefficient of row that corresponds with the processed column to 1
+            controller.setCommand(new ScaleRowCoefficientCommand(matrix, j));
+            controller.executeCommand();
 
             //For every column, loop over different rows that are manipulated
             for(int i = j + 1; i < N; i++){
+
                 //"Nullify" coefficient
-                nullifyCoefficient(i, j);
+                controller.setCommand(new NullifyRowCoefficientCommand(matrix, i, j));
+                controller.executeCommand();
             }
         }
 
-        //Transform last row to starting index of 1 if necessary
-        scaleToCoefficientOne(N-1);
+        //Scale last row
+        controller.setCommand(new ScaleRowCoefficientCommand(matrix, N-1));
+        controller.executeCommand();
 
         System.out.println();
     }
@@ -65,7 +71,9 @@ public class Solver {
             //For every column, loop over every row element to be "nullified"
             for(int i = 0; i < j; i++){
 
-                nullifyCoefficient(i, j);
+                //"Nullify" coefficient
+                controller.setCommand(new NullifyRowCoefficientCommand(matrix, i, j));
+                controller.executeCommand();
 
             }
         }
@@ -75,32 +83,5 @@ public class Solver {
 
     double[] getSolution(){
         return matrix.getLastElements();
-    }
-
-    void scaleToCoefficientOne(int diagonalIndex){
-        if(matrix.getElement(diagonalIndex, diagonalIndex) != 1){
-            double multiplier = 1/matrix.getElement(diagonalIndex, diagonalIndex);
-
-            //Print execution command
-            System.out.println(multiplier + " * R" + (diagonalIndex + 1) + " -> R"+ (diagonalIndex + 1));
-
-            //Perform execution
-            matrix.multiplyRow(diagonalIndex, multiplier);
-        }
-    }
-
-    void nullifyCoefficient(int rowIndex, int colIndex){
-        //Determine operation
-        double multiplier = matrix.getElement(rowIndex, colIndex);
-
-        //Determine substracted Row
-        Row substractedRow = matrix.getRowCopy(colIndex);
-        substractedRow.multiply(multiplier);
-
-        //Perform execution
-        matrix.substractRow(rowIndex, substractedRow);
-
-        //Print execution command
-        System.out.println(-multiplier + " * R" + (colIndex + 1) + " + R" + (rowIndex + 1) + " -> R" + (rowIndex + 1));
     }
 }
