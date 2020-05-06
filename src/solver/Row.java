@@ -18,22 +18,12 @@ public class Row {
     }
 
     void multiply(double multiplier){
-        multiplyArray(this.elements, multiplier);
+        Util.multiplyArray(this.elements, multiplier);
     }
 
-    Row getMultipliedRow(double multiplier){
-        //Get copy of elements of Row
-        double[] arr = Arrays.copyOf(this.elements, this.elements.length);
-
-        //Return multiplied elements as Row
-        return new Row(multiplyArray(arr, multiplier));
-    }
-
-    private double[] multiplyArray(double[] arr, double multiplier){
-        for(int i = 0; i < arr.length; i++){
-            arr[i] *= multiplier;
-        }
-        return arr;
+    Row getRowCopy(){
+        //Return copied elements as new Row
+        return new Row(Arrays.copyOf(this.elements, this.elements.length));
     }
 
     void substract(Row subtractedRow){

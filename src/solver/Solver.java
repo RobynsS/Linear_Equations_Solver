@@ -93,11 +93,14 @@ public class Solver {
         //Determine operation
         double multiplier = matrix.getElement(rowIndex, colIndex);
 
-        //Print execution command
-        System.out.println(-multiplier + " * R" + (colIndex + 1) + " + R" + (rowIndex + 1) + " -> R" + (rowIndex + 1));
+        //Determine substracted Row
+        Row substractedRow = matrix.getRowCopy(colIndex);
+        substractedRow.multiply(multiplier);
 
         //Perform execution
-        matrix.substractRow(rowIndex, matrix.getMultipliedRow(colIndex, multiplier));
+        matrix.substractRow(rowIndex, substractedRow);
 
+        //Print execution command
+        System.out.println(-multiplier + " * R" + (colIndex + 1) + " + R" + (rowIndex + 1) + " -> R" + (rowIndex + 1));
     }
 }

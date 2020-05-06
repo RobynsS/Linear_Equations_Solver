@@ -35,8 +35,8 @@ public class Matrix {
         rows[index].substract(substractedRow);
     }
 
-    Row getMultipliedRow(int index, double multiplier) {
-        return rows[index].getMultipliedRow(multiplier);
+    Row getRowCopy(int index) {
+        return rows[index].getRowCopy();
     }
 
     double[] getLastElements(){
