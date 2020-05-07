@@ -97,10 +97,11 @@ public class Solver {
     boolean findNonZeroElement(int index){
 
         //Initialize boolean
-        boolean nonZero = false;
+        boolean nonZero = true;
 
         //Only perform method if the element is originally zero
-        if(matrix.getElement(index, index) != 0){
+        if(matrix.getElement(index, index) == 0){
+            nonZero = false;
             int N = matrix.getAmountRows();
             int M = matrix.getAmountCols();
 

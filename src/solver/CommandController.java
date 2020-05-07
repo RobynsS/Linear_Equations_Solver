@@ -14,7 +14,7 @@ public class CommandController {
 
     public void executeCommand() {
         command.execute();
-        if (command instanceof SwapRowCommand){
+        if (command instanceof SwapColCommand){
             swapColCommandHistory.add((SwapColCommand) command);
         }
     }
