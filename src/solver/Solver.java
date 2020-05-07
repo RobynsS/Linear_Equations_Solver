@@ -47,7 +47,7 @@ public class Solver {
         int M = matrix.getAmountCols();
 
         //Loop over different columns which need to be "nullified"
-        for(int j = 0; j < M-2; j++){
+        for(int j = 0; j < M-1; j++){
 
             //Check if the row coefficient of the row that corresponds with the processed column can be non-zero
             boolean nonZero = findNonZeroElement(j);
@@ -64,12 +64,10 @@ public class Solver {
                     controller.setCommand(new NullifyRowCoefficientCommand(matrix, i, j));
                     controller.executeCommand();
                 }
+                matrix.printMatrix();
+                System.out.println();
             }
         }
-
-        //Scale last row
-        controller.setCommand(new ScaleRowCoefficientCommand(matrix, N-1));
-        controller.executeCommand();
 
         System.out.println();
     }
