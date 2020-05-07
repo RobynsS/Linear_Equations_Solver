@@ -1,5 +1,7 @@
 package solver;
 
+import java.util.Arrays;
+
 public class Solver {
     private Matrix matrix;
     private CommandController controller;
@@ -44,10 +46,9 @@ public class Solver {
     void transformToReducedRowEchelon(){
         //Get matrix size
         int N = matrix.getAmountRows();
-        int M = matrix.getAmountCols();
 
         //Loop over different columns which need to be "nullified"
-        for(int j = 0; j < M-1; j++){
+        for(int j = 0; j < N; j++){
 
             //Check if the row coefficient of the row that corresponds with the processed column can be non-zero
             boolean nonZero = findNonZeroElement(j);
@@ -174,7 +175,7 @@ public class Solver {
             }
         }
         if(solutionType != SolutionType.NONE) {
-            if (zeroRows != M - 1) {
+            if (N-zeroRows != M - 1) {
                 solutionType = SolutionType.MANY;
             } else {
                 solutionType = SolutionType.ONE;
@@ -184,7 +185,7 @@ public class Solver {
 
     double[] getSolution(){
         if(solutionType == SolutionType.ONE) {
-            return matrix.getLastElements();
+            return Arrays.copyOfRange(matrix.getLastElements(), 0, matrix.getAmountCols()-1);
         } else {
             return null;
         }
