@@ -155,16 +155,16 @@ public class Solver {
         //Loop over rows
         for(int i = 0; i < N; i++){
             //Loop over columns: check if all coefficients are zero
-            boolean nonZeroCoef = true;
+            boolean nonZeroCoef = false;
             for(int j = 0; j < M-1; j++){
                 if(matrix.getElement(i, j) != 0){
-                    nonZeroCoef = false;
+                    nonZeroCoef = true;
                     break;
                 }
             }
 
             //If all coefficients are zero, check if the constant is zero
-            if(nonZeroCoef){
+            if(!nonZeroCoef){
                 if(matrix.getElement(i, M-1) != 0){
                     solutionType = SolutionType.NONE;
                     break;
@@ -173,11 +173,12 @@ public class Solver {
                 }
             }
         }
-
-        if(N-zeroRows != M-1){
-            solutionType = SolutionType.MANY;
-        } else {
-            solutionType = SolutionType.ONE;
+        if(solutionType != SolutionType.NONE) {
+            if (zeroRows != M - 1) {
+                solutionType = SolutionType.MANY;
+            } else {
+                solutionType = SolutionType.ONE;
+            }
         }
     }
 
