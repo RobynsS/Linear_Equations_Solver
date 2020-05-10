@@ -65,8 +65,6 @@ public class Solver {
                     controller.setCommand(new NullifyRowCoefficientCommand(matrix, i, j));
                     controller.executeCommand();
                 }
-                matrix.printMatrix();
-                System.out.println();
             }
         }
 
