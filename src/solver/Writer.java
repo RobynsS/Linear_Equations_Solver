@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Writer {
-    static void readSolutionToOutput(String filepath, double[] solution, SolutionType solutionType) {
+    static void readSolutionToOutput(String filepath, Complex[] solution, SolutionType solutionType) {
         File file = new File(filepath);
 
         try{
@@ -20,7 +20,7 @@ public class Writer {
 
                 //If there is one solution: Loop over solution to print all numbers on different lines
                 for (int i = 0; i < solution.length; i++) {
-                    fileWriter.write(Double.toString(solution[i]));
+                    fileWriter.write(solution[i].toString());
 
                     if (i != solution.length - 1) {
                         fileWriter.write("\r\n");

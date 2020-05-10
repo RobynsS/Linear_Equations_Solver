@@ -14,9 +14,9 @@ public class ScaleRowCoefficientCommand implements Command {
     public void execute() {
 
         //Only perform method if row is not already scaled
-        if(matrix.getElement(rowIndex, rowIndex) != 1){
+        if(!matrix.getElement(rowIndex, rowIndex).equalsReal(1)){
             //Determine multiplier
-            double multiplier = 1/matrix.getElement(rowIndex, rowIndex);
+            Complex multiplier = Complex.divide(new Complex(1, 0), matrix.getElement(rowIndex, rowIndex));
 
             //Perform execution
             matrix.multiplyRow(rowIndex, multiplier);

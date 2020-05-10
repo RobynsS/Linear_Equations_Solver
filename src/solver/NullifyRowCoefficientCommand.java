@@ -15,7 +15,7 @@ public class NullifyRowCoefficientCommand implements Command {
     @Override
     public void execute() {
         //Determine operation
-        double multiplier = matrix.getElement(rowIndex, colIndex);
+        Complex multiplier = matrix.getElement(rowIndex, colIndex);
 
         //Determine substracted Row
         Row substractedRow = matrix.getRowCopy(colIndex);
@@ -25,6 +25,6 @@ public class NullifyRowCoefficientCommand implements Command {
         matrix.substractRow(rowIndex, substractedRow);
 
         //Print execution command
-        System.out.println(-multiplier + " * R" + (colIndex + 1) + " + R" + (rowIndex + 1) + " -> R" + (rowIndex + 1));
+        System.out.println(multiplier.getNegative() + " * R" + (colIndex + 1) + " + R" + (rowIndex + 1) + " -> R" + (rowIndex + 1));
     }
 }

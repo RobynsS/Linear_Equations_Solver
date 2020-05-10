@@ -3,17 +3,17 @@ package solver;
 public class Matrix {
     private Row[] rows;
 
-    Matrix(double[][] elements){
+    Matrix(Complex[][] elements){
         rows = new Row[elements.length];
         int rowIndex = 0;
 
-        for (double[] row: elements){
+        for (Complex[] row: elements){
             rows[rowIndex] = new Row(row);
             rowIndex++;
         }
     }
 
-    double getElement(int index1, int index2){
+    Complex getElement(int index1, int index2){
         return rows[index1].getElement(index2);
     }
 
@@ -31,7 +31,7 @@ public class Matrix {
         return rows[0].getSize();
     }
 
-    void multiplyRow(int index, double multiplier){
+    void multiplyRow(int index, Complex multiplier){
         rows[index].multiply(multiplier);
     }
 
@@ -55,8 +55,8 @@ public class Matrix {
         }
     }
 
-    double[] getLastElements(){
-        double[] arr = new double[rows.length];
+    Complex[] getLastElements(){
+        Complex[] arr = new Complex[rows.length];
         int index = 0;
 
         for(Row row: rows){
@@ -66,4 +66,5 @@ public class Matrix {
 
         return arr;
     }
+
 }

@@ -3,17 +3,17 @@ package solver;
 import java.util.Arrays;
 
 public class Row {
-    private double[] elements;
+    private Complex[] elements;
 
-    Row(double[] elements){
+    Row(Complex[] elements){
         this.elements = elements;
     }
 
-    double getElement(int index){
+    Complex getElement(int index){
         return this.elements[index];
     }
 
-    double getLastElement(){
+    Complex getLastElement(){
         return getElement(this.elements.length - 1);
     }
 
@@ -21,7 +21,7 @@ public class Row {
         return elements.length;
     }
 
-    void multiply(double multiplier){
+    void multiply(Complex multiplier){
         Util.multiplyArray(this.elements, multiplier);
     }
 
@@ -33,13 +33,13 @@ public class Row {
     void substract(Row subtractedRow){
         if(elements.length == subtractedRow.elements.length){
             for(int i = 0; i < elements.length; i++){
-                elements[i] -= subtractedRow.elements[i];
+                elements[i] = Complex.substract(elements[i], subtractedRow.elements[i]);
             }
         }
     }
 
     void swapElement(int index1, int index2){
-        double temp = elements[index1];
+        Complex temp = elements[index1];
         elements[index1] = elements[index2];
         elements[index2] = temp;
     }

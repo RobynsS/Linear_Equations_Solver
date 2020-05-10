@@ -75,7 +75,6 @@ public class Solver {
 
     void decoupleVariables(){
         //Get matrix size
-        int N = matrix.getAmountRows();
         int M = matrix.getAmountCols();
 
         //Loop backwards over different columns which need to be "nullified"
@@ -99,14 +98,14 @@ public class Solver {
         boolean nonZero = true;
 
         //Only perform method if the element is originally zero
-        if(matrix.getElement(index, index) == 0){
+        if(matrix.getElement(index, index).equalsReal(0)){
             nonZero = false;
             int N = matrix.getAmountRows();
             int M = matrix.getAmountCols();
 
             //Search through rows to find non-zero element
             for(int i = index+1; i < N ; i++){
-                if(matrix.getElement(i, index) != 0){
+                if(!matrix.getElement(i, index).equalsReal(0)){
                     controller.setCommand(new SwapRowCommand(matrix, i, index));
                     controller.executeCommand();
                     nonZero = true;
@@ -117,7 +116,7 @@ public class Solver {
             //Search through columns to find non-zero element when none is found
             if(!nonZero){
                 for(int i = index+1; i < M-1; i++){
-                    if(matrix.getElement(index, i) != 0){
+                    if(!matrix.getElement(index, i).equalsReal(0)){
                         controller.setCommand(new SwapColCommand(matrix, i, index));
                         controller.executeCommand();
                         nonZero = true;
@@ -130,7 +129,7 @@ public class Solver {
             if(!nonZero){
                 for(int i = index + 1; i < N; i++){
                     for(int j = index + 1; j < M-1; j++){
-                        if(matrix.getElement(i, j) != 0){
+                        if(!matrix.getElement(i, j).equalsReal(0)){
                             controller.setCommand(new SwapRowCommand(matrix, i, index));
                             controller.executeCommand();
                             controller.setCommand(new SwapColCommand(matrix, j, index));
@@ -158,7 +157,7 @@ public class Solver {
             //Loop over columns: check if all coefficients are zero
             boolean nonZeroCoef = false;
             for(int j = 0; j < M-1; j++){
-                if(matrix.getElement(i, j) != 0){
+                if(!matrix.getElement(i, j).equalsReal(0)){
                     nonZeroCoef = true;
                     break;
                 }
@@ -166,7 +165,7 @@ public class Solver {
 
             //If all coefficients are zero, check if the constant is zero
             if(!nonZeroCoef){
-                if(matrix.getElement(i, M-1) != 0){
+                if(!matrix.getElement(i, M-1).equalsReal(0)){
                     solutionType = SolutionType.NONE;
                     break;
                 } else {
@@ -183,7 +182,7 @@ public class Solver {
         }
     }
 
-    double[] getSolution(){
+    Complex[] getSolution(){
         if(solutionType == SolutionType.ONE) {
             return Arrays.copyOfRange(matrix.getLastElements(), 0, matrix.getAmountCols()-1);
         } else {

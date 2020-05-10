@@ -5,13 +5,13 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Reader {
-    static double[][] readElementsFromInput(String filePath) throws ReaderException{
+    static Complex[][] readElementsFromInput(String filePath) throws ReaderException{
         File file = new File(filePath);
         String rowString;
         String[] rowStringSplit;
         int M;
         int N;
-        double[][] elements;
+        Complex[][] elements;
 
         try{
             //Try to create Scanner object with the given file
@@ -24,7 +24,7 @@ public class Reader {
             M = Integer.parseInt(rowStringSplit[0]);
             N = Integer.parseInt(rowStringSplit[1]);
 
-            elements = new double[N][M+1];
+            elements = new Complex[N][M+1];
 
             //Get each row of elements
             int rowCounter = 0;
@@ -37,7 +37,7 @@ public class Reader {
                 //Parse different numbers to ints
                 int columnCounter = 0;
                 for (String s: rowStringSplit){
-                    elements[rowCounter][columnCounter] = Double.parseDouble(s);
+                    elements[rowCounter][columnCounter] = Complex.parseComplex(s);
                     columnCounter++;
                 }
 

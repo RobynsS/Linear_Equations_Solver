@@ -1,8 +1,5 @@
 package solver;
 
-import java.util.Arrays;
-import java.util.Iterator;
-
 public class Complex {
     private Double real;
     private Double imaginary;
@@ -39,6 +36,14 @@ public class Complex {
         double imaginary = (c2.real * c1. imaginary - c1.real * c2.imaginary)/denominator;
 
         return new Complex(real, imaginary);
+    }
+
+    boolean equalsReal(int real){
+        return this.real == real && imaginary == 0;
+    }
+
+    Complex getNegative(){
+        return new Complex(-real, -imaginary);
     }
 
     static Complex parseComplex(String s){
